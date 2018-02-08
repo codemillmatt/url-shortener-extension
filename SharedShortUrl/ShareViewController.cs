@@ -44,7 +44,6 @@ namespace SharedShortUrl
 
             try
             {
-
                 foreach (NSItemProvider itemProvider in this.ExtensionContext.InputItems[0].Attachments)
                 {
                     if (itemProvider.HasItemConformingTo(MobileCoreServices.UTType.URL))
@@ -59,7 +58,7 @@ namespace SharedShortUrl
                                 {
                                     TagWt = false,
                                     TagUtm = false,
-                                    Campaign = "test",
+                                    Campaign = ContentText,
                                     Mediums = new List<string>() { "twitter" },
                                     Input = urlToShorten
                                 };
