@@ -64,48 +64,30 @@ namespace SharedShortUrl
                                     Input = urlToShorten
                                 };
 
-                                var serverless = Settings.ShortenerUrl;
+                                var defaults = new NSUserDefaults(Constants.GroupName, NSUserDefaultsType.SuiteName);
+                                var url = defaults.StringForKey(Constants.IOS_SettingsKey);
 
-                                shortenedUrl = await ShorteningService.ShortenUrl(request);
+                                shortenedUrl = await ShorteningService.ShortenUrl(request, url);
 
-                                UIPasteboard clipboard = UIPasteboard.General;
-                                clipboard.String = shortenedUrl;
-
-                                UIAlertController alert = UIAlertController.Create("Share extension", $"https://{shortenedUrl} has been copied!", UIAlertControllerStyle.Alert);
-                                PresentViewController(alert, true, () =>
+                                InvokeOnMainThread(() =>
                                 {
-                                    var dt = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(3));
-                                    DispatchQueue.MainQueue.DispatchAfter(dt, () =>
+                                    UIPasteboard clipboard = UIPasteboard.General;
+                                    clipboard.String = shortenedUrl;
+
+                                    UIAlertController alert = UIAlertController.Create("Share extension", $"https://{shortenedUrl} has been copied!", UIAlertControllerStyle.Alert);
+                                    PresentViewController(alert, true, () =>
                                     {
-                                        ExtensionContext.CompleteRequest(null, null);
+                                        var dt = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(1));
+                                        DispatchQueue.MainQueue.DispatchAfter(dt, () =>
+                                        {
+                                            ExtensionContext.CompleteRequest(null, null);
+                                        });
                                     });
                                 });
                             }
                         });
                     }
                 }
-
-                //ExtensionContext.CompleteRequest(null, null);
-
-                //    var result = await urlItemProvider.LoadItemAsync(MobileCoreServices.UTType.URL.ToString(), null) as NSUrl;
-
-                //    var urlToShorten = result?.AbsoluteUrl.ToString();
-
-                //    var request = new ShortRequest
-                //    {
-                //        TagWt = false,
-                //        TagUtm = false,
-                //        Campaign = "test",
-                //        Mediums = new List<string>() { "twitter" },
-                //        Input = urlToShorten
-                //    };
-
-                //    shortenedUrl = await ShorteningService.ShortenUrl(request);
-
-                //    UIPasteboard clipboard = UIPasteboard.General;
-                //    clipboard.String = shortenedUrl;
-                //}
-
             }
             catch (Exception ex)
             {

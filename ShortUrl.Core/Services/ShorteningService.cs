@@ -10,9 +10,9 @@ namespace ShortUrl.Core
         {
         }
 
-        public async static Task<string> ShortenUrl(ShortRequest request)
+        public async static Task<string> ShortenUrl(ShortRequest request, string shorteningUrl)
         {
-            var shortenedReturn = await HttpService.Post<ShortRequest>(Settings.ShortenerUrl, request);
+            var shortenedReturn = await HttpService.Post<ShortRequest>(shorteningUrl, request);
 
             var shortResponseJson = await shortenedReturn.Content.ReadAsStringAsync();
 

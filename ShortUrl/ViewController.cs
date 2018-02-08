@@ -4,6 +4,7 @@ using UIKit;
 //using ShortUrl.Core;
 using ShortUrl.Core;
 using CoreFoundation;
+using Foundation;
 
 namespace ShortUrl
 {
@@ -19,7 +20,11 @@ namespace ShortUrl
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            shortenedUrlLocation.Text = Settings.ShortenerUrl;
+            var defaults = new NSUserDefaults(Constants.GroupName, NSUserDefaultsType.SuiteName);
+
+            var url = defaults.StringForKey(Constants.IOS_SettingsKey);
+            if (!string.IsNullOrWhiteSpace(url))
+                shortenedUrlLocation.Text = url;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -30,7 +35,9 @@ namespace ShortUrl
 
         partial void SaveButton_TouchUpInside(UIButton sender)
         {
-            Settings.ShortenerUrl = shortenedUrlLocation.Text;
+            var s = new NSUserDefaults(Constants.GroupName, NSUserDefaultsType.SuiteName);
+            s.SetString(shortenedUrlLocation.Text, Constants.IOS_SettingsKey);
+            s.Synchronize();
 
             UIAlertController alert = UIAlertController.Create("Share extension", "Shortening URL has been saved!", UIAlertControllerStyle.Alert);
             PresentViewController(alert, true, () =>
