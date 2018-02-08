@@ -1,26 +1,66 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-	<dependencies>
-		<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106" />
-		<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0" />
-	</dependencies>
-	<scenes>
-		<!--View Controller-->
-		<scene sceneID="tne-QT-ifu">
-			<objects>
-				<viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-					<layoutGuides>
-						<viewControllerLayoutGuide type="top" id="y3c-jy-aDJ" />
-						<viewControllerLayoutGuide type="bottom" id="wfy-db-euE" />
-					</layoutGuides>
-					<view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-						<rect key="frame" x="0.0" y="0.0" width="375" height="667" />
-						<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" />
-						<color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB" />
-					</view>
-				</viewController>
-				<placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder" />
-			</objects>
-		</scene>
-	</scenes>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="198">
+                                <rect key="frame" x="16" y="256" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="199">
+                                <rect key="frame" x="170.5" y="353" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="SaveButton_TouchUpInside:" destination="BYZ-38-t0r" id="415" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shortener Url" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZc-Sk-MH4">
+                                <rect key="frame" x="136" y="126" width="103" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="198" firstAttribute="top" secondItem="uZc-Sk-MH4" secondAttribute="bottom" constant="109" id="CB1-UT-zNp"/>
+                            <constraint firstItem="199" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HaW-id-m1x"/>
+                            <constraint firstItem="199" firstAttribute="top" secondItem="198" secondAttribute="bottom" constant="67" id="Li9-E6-PWa"/>
+                            <constraint firstItem="uZc-Sk-MH4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gWC-M3-dkF"/>
+                            <constraint firstItem="198" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="m5p-E8-4JW"/>
+                            <constraint firstItem="198" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="nBs-rD-kNK"/>
+                            <constraint firstItem="uZc-Sk-MH4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="106" id="y0L-R1-Je1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="saveButton" destination="199" id="name-outlet-199"/>
+                        <outlet property="shortenedUrlLocation" destination="198" id="name-outlet-198"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-0.8" y="-0.4497751"/>
+        </scene>
+    </scenes>
 </document>

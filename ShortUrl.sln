@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortUrl", "ShortUrl\ShortU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedShortUrl", "SharedShortUrl\SharedShortUrl.csproj", "{8C3581EB-D74B-4AD1-8CBC-50DE75215F9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortUrl.Core", "ShortUrl.Core\ShortUrl.Core.csproj", "{29555B0A-DB7D-4BBF-B5B6-43738A630B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -29,5 +31,13 @@ Global
 		{8C3581EB-D74B-4AD1-8CBC-50DE75215F9B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{8C3581EB-D74B-4AD1-8CBC-50DE75215F9B}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{8C3581EB-D74B-4AD1-8CBC-50DE75215F9B}.Debug|iPhone.Build.0 = Debug|iPhone
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Release|iPhone.Build.0 = Release|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{29555B0A-DB7D-4BBF-B5B6-43738A630B34}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

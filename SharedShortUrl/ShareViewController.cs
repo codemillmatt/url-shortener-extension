@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using ShortUrl.Core;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SharedShortUrl
 {
@@ -35,48 +38,73 @@ namespace SharedShortUrl
             return true;
         }
 
-        public async override void DidSelectPost()
+        public override void DidSelectPost()
         {
             string shortenedUrl = "";
 
             try
             {
-                var inputItem = ExtensionContext.InputItems[0];
-                var urlItemProvider = ((NSArray)inputItem.UserInfo[NSExtensionItem.AttachmentsKey]).GetItem<NSItemProvider>(0);
 
-                if (urlItemProvider.HasItemConformingTo(MobileCoreServices.UTType.URL))
+                foreach (NSItemProvider itemProvider in this.ExtensionContext.InputItems[0].Attachments)
                 {
-                    var result = await urlItemProvider.LoadItemAsync(MobileCoreServices.UTType.URL.ToString(), null) as NSUrl;
-
-                    var myUrl = result?.AbsoluteUrl.ToString();
-
-                    var si = new ShorteningInfo
+                    if (itemProvider.HasItemConformingTo(MobileCoreServices.UTType.URL))
                     {
-                        AppendMedium = false,
-                        CampaignName = ContentText,
-                        Input = myUrl,
-                        MediumName = "twitter",
-                        TagMediums = false,
-                        TagSource = false
-                    };
+                        itemProvider.LoadItem(MobileCoreServices.UTType.URL, null, async (item, error) =>
+                        {
+                            if (item is NSUrl)
+                            {
+                                var urlToShorten = ((NSUrl)item).AbsoluteUrl.ToString();
 
-                    var serialized = JsonConvert.SerializeObject(si);
-                    StringContent sc = new StringContent(serialized, Encoding.UTF8, "application/json");
+                                var request = new ShortRequest
+                                {
+                                    TagWt = false,
+                                    TagUtm = false,
+                                    Campaign = "test",
+                                    Mediums = new List<string>() { "twitter" },
+                                    Input = urlToShorten
+                                };
 
-                    var totUrl = new Uri("--YOUR INJEST URL HERE--");
-                    var client = new HttpClient();
+                                var serverless = Settings.ShortenerUrl;
 
-                    var res = await client.PostAsync(totUrl, sc);
+                                shortenedUrl = await ShorteningService.ShortenUrl(request);
 
-                    var shortUrlString = await res.Content.ReadAsStringAsync();
+                                UIPasteboard clipboard = UIPasteboard.General;
+                                clipboard.String = shortenedUrl;
 
-                    var theShortUrl = JsonConvert.DeserializeObject<List<ShortenedUrls>>(shortUrlString);
-
-                    shortenedUrl = theShortUrl.FirstOrDefault().ShortUrl;
-
-                    UIPasteboard clipboard = UIPasteboard.General;
-                    clipboard.String = shortenedUrl;
+                                UIAlertController alert = UIAlertController.Create("Share extension", $"https://{shortenedUrl} has been copied!", UIAlertControllerStyle.Alert);
+                                PresentViewController(alert, true, () =>
+                                {
+                                    var dt = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(3));
+                                    DispatchQueue.MainQueue.DispatchAfter(dt, () =>
+                                    {
+                                        ExtensionContext.CompleteRequest(null, null);
+                                    });
+                                });
+                            }
+                        });
+                    }
                 }
+
+                //ExtensionContext.CompleteRequest(null, null);
+
+                //    var result = await urlItemProvider.LoadItemAsync(MobileCoreServices.UTType.URL.ToString(), null) as NSUrl;
+
+                //    var urlToShorten = result?.AbsoluteUrl.ToString();
+
+                //    var request = new ShortRequest
+                //    {
+                //        TagWt = false,
+                //        TagUtm = false,
+                //        Campaign = "test",
+                //        Mediums = new List<string>() { "twitter" },
+                //        Input = urlToShorten
+                //    };
+
+                //    shortenedUrl = await ShorteningService.ShortenUrl(request);
+
+                //    UIPasteboard clipboard = UIPasteboard.General;
+                //    clipboard.String = shortenedUrl;
+                //}
 
             }
             catch (Exception ex)
@@ -84,15 +112,7 @@ namespace SharedShortUrl
                 Console.WriteLine(ex);
             }
 
-            UIAlertController alert = UIAlertController.Create("Share extension", $"https://{shortenedUrl} has been copied!", UIAlertControllerStyle.Alert);
-            PresentViewController(alert, true, () =>
-            {
-                var dt = new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(3));
-                DispatchQueue.MainQueue.DispatchAfter(dt, () =>
-                {
-                    ExtensionContext.CompleteRequest(null, null);
-                });
-            });
+
         }
 
         public override SLComposeSheetConfigurationItem[] GetConfigurationItems()
