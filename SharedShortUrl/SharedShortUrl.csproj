@@ -29,7 +29,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchVerbosity></MtouchVerbosity>
-    <CodesignProvision>VS: com.codemilltech.Shortening.SharedShortUrl Development</CodesignProvision>
+    <CodesignProvision>MSOUCO EXTENSION DEV</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -120,6 +120,10 @@
       <DependentUpon>ShareViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="LinkShortenerViewController.cs" />
+    <Compile Include="LinkShortenerViewController.designer.cs">
+      <DependentUpon>LinkShortenerViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShortUrl.Core\ShortUrl.Core.csproj">
